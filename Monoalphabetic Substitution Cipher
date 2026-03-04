@@ -1,0 +1,14 @@
+#include<stdio.h>
+int main() {
+    char p[100], key[27], c[100];
+    int i;
+    printf("Enter plaintext: ");
+    scanf("%s", p);
+    printf("Enter key: ");
+    scanf("%s", key);
+    for(i=0;p[i]!='\0';i++){
+        c[i] = key[p[i]-'a'];
+    }
+    c[i]='\0';
+    printf("Cipher text: %s", c);
+}
