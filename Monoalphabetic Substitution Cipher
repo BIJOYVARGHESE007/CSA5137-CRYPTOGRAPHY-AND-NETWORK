@@ -1,14 +1,15 @@
-#include<stdio.h>
-int main() {
-    char p[100], key[27], c[100];
-    int i;
-    printf("Enter plaintext: ");
-    scanf("%s", p);
-    printf("Enter key: ");
-    scanf("%s", key);
-    for(i=0;p[i]!='\0';i++){
-        c[i] = key[p[i]-'a'];
-    }
-    c[i]='\0';
-    printf("Cipher text: %s", c);
-}
+plaintext = input("Enter plaintext: ")
+key = input("Enter 26-letter substitution key: ")
+
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+ciphertext = ""
+
+for char in plaintext:
+    if char.isalpha():
+        index = alphabet.index(char.lower())
+        cipher = key[index]
+        ciphertext += cipher
+    else:
+        ciphertext += char
+
+print("Ciphertext:", ciphertext)
