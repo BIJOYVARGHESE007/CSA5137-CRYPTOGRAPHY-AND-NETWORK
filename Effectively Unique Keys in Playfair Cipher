@@ -1,0 +1,12 @@
+import math
+
+total = math.factorial(25)
+effective = total // 25
+
+log_total = math.log2(total)
+log_effective = log_total - math.log2(25)
+
+print("Total keys:", total)
+print("Effective keys:", effective)
+print("Approx log2(effective):", log_effective)
+print("Approx effective ≈ 2^", log_effective)
