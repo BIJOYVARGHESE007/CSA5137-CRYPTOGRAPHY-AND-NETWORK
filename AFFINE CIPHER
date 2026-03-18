@@ -1,0 +1,38 @@
+def mod_inverse(a, m):
+    for x in range(1, m):
+        if (a * x) % m == 1:
+            return x
+    return None
+
+def affine_encrypt(text, a, b):
+    result = ""
+    for char in text:
+        if char.isalpha():
+            x = ord(char.lower()) - ord('a')
+            enc = (a * x + b) % 26
+            result += chr(enc + ord('a'))
+        else:
+            result += char
+    return result
+
+def affine_decrypt(cipher, a, b):
+    result = ""
+    a_inv = mod_inverse(a, 26)
+    for char in cipher:
+        if char.isalpha():
+            y = ord(char.lower()) - ord('a')
+            dec = (a_inv * (y - b)) % 26
+            result += chr(dec + ord('a'))
+        else:
+            result += char
+    return result
+
+text = "hello"
+a = 5
+b = 8
+
+encrypted = affine_encrypt(text, a, b)
+decrypted = affine_decrypt(encrypted, a, b)
+
+print(encrypted)
+print(decrypted)
