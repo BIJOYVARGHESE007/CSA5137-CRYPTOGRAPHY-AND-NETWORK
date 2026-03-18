@@ -1,0 +1,8 @@
+import math
+
+value = math.log2(25)
+factorial_log = math.log2(math.factorial(25))
+
+print("log2(25) =", value)
+print("log2(25!) =", factorial_log)
+print("Approx 25! ≈ 2^", factorial_log)
