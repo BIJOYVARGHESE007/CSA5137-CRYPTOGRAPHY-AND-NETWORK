@@ -1,0 +1,57 @@
+def get_key_matrix():
+    return [[3, 3],
+            [2, 5]]
+
+def mod_inv(a, m):
+    for x in range(1, m):
+        if (a * x) % m == 1:
+            return x
+
+def prepare_text(text):
+    text = text.upper().replace(" ", "")
+    if len(text) % 2 != 0:
+        text += 'X'
+    return text
+
+def encrypt(text, key):
+    text = prepare_text(text)
+    res = ""
+    for i in range(0, len(text), 2):
+        x1 = ord(text[i]) - 65
+        x2 = ord(text[i+1]) - 65
+
+        y1 = (key[0][0]*x1 + key[0][1]*x2) % 26
+        y2 = (key[1][0]*x1 + key[1][1]*x2) % 26
+
+        res += chr(y1 + 65) + chr(y2 + 65)
+    return res
+
+def decrypt(cipher, key):
+    det = key[0][0]*key[1][1] - key[0][1]*key[1][0]
+    det = det % 26
+    inv_det = mod_inv(det, 26)
+
+    inv_key = [
+        [(key[1][1]*inv_det) % 26, (-key[0][1]*inv_det) % 26],
+        [(-key[1][0]*inv_det) % 26, (key[0][0]*inv_det) % 26]
+    ]
+
+    res = ""
+    for i in range(0, len(cipher), 2):
+        y1 = ord(cipher[i]) - 65
+        y2 = ord(cipher[i+1]) - 65
+
+        x1 = (inv_key[0][0]*y1 + inv_key[0][1]*y2) % 26
+        x2 = (inv_key[1][0]*y1 + inv_key[1][1]*y2) % 26
+
+        res += chr(x1 + 65) + chr(x2 + 65)
+    return res
+
+key = get_key_matrix()
+text = "CRYPTOGRAPHY"
+
+cipher = encrypt(text, key)
+plain = decrypt(cipher, key)
+
+print("Encrypted:", cipher)
+print("Decrypted:", plain)
