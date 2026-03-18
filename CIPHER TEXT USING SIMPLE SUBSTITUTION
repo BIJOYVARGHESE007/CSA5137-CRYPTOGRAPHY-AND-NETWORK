@@ -1,0 +1,26 @@
+def encrypt(text, key):
+    result = ""
+    for char in text:
+        if char.isalpha():
+            result += key[ord(char.lower()) - ord('a')]
+        else:
+            result += char
+    return result
+
+def decrypt(cipher, key):
+    result = ""
+    for char in cipher:
+        if char.isalpha():
+            result += chr(key.index(char.lower()) + ord('a'))
+        else:
+            result += char
+    return result
+
+key = "qwertyuiopasdfghjklzxcvbnm"
+text = "CRYTOGRAPHY"
+
+cipher = encrypt(text, key)
+plain = decrypt(cipher, key)
+
+print(cipher)
+print(plain)
