@@ -1,0 +1,32 @@
+def encrypt(text, key):
+    result = ""
+    for char in text:
+        if char.isalpha():
+            if char.isupper():
+                result += key[ord(char) - ord('A')].upper()
+            else:
+                result += key[ord(char) - ord('a')]
+        else:
+            result += char
+    return result
+
+def decrypt(cipher, key):
+    result = ""
+    for char in cipher:
+        if char.isalpha():
+            if char.isupper():
+                result += chr(key.index(char.lower()) + ord('A'))
+            else:
+                result += chr(key.index(char) + ord('a'))
+        else:
+            result += char
+    return result
+
+key = "qwertyuiopasdfghjklzxcvbnm"
+text = "CRYPTOGRAPHY"
+
+cipher = encrypt(text, key)
+plain = decrypt(cipher, key)
+
+print("Encrypted:", cipher)
+print("Decrypted:", plain)
